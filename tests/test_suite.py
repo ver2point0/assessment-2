@@ -2,7 +2,8 @@ import unittest
 
 class TestVideoInventoryManager(unittest.TestCase):
 
-	
+	def TestCase():
+		pass
 
 
 
