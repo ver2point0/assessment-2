@@ -1,6 +1,9 @@
+from modules.inventory import Inventory
+
 class Interface():
 	def __init__(self):
-		pass
+		self.videos, self.video_id = Inventory.objects('inventory')
+		self.customers, self.customer_id = Inventory.objects('customers')
 
 	def run(self):
 		while True:
@@ -21,12 +24,16 @@ class Interface():
 
 			if user_input == '1':
 				print("View inventory")
+				Inventory.view_video_inventory()
 			elif user_input == '2':
 				print("View a customer's rented videos")
+				Inventory.view_customers_videos()
 			elif user_input == '3':
 				print("Rent a video")
+				Inventory.rent_a_video()
 			elif user_input == '4':
 				print("Return a video")
+				Inventory.return_a_video()
 			elif user_input == '5':
 				print("Add a new customer")
 			elif user_input == '6':
