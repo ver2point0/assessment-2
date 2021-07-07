@@ -27,11 +27,9 @@ class Interface():
 			elif user_input == '2':
 				Inventory.view_customers_videos(self)
 			elif user_input == '3':
-				print("Rent a video")
-				Inventory.rent_a_video()
+				Inventory.rent_a_video(self)
 			elif user_input == '4':
-				print("Return a video")
-				Inventory.return_a_video()
+				Inventory.return_a_video(self)
 			elif user_input == '5':
 				Inventory.add_a_new_customer(self, self.customer_id)
 			elif user_input == '6':

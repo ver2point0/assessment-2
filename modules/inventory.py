@@ -24,7 +24,44 @@ class Inventory():
 
 	# rent a video
 	def rent_a_video(self):
-		pass
+		c_id = input(f'\n Enter customer id: ')
+		v_title = input(f'Enter video title: ')
+		cust_id = False
+		available_id = False
+
+		# are copies available
+		for v in self.videos:
+			if v['title'] == v_title and int(v['copies_available']) > 0:
+				available_id = True
+				break
+			elif v['title'] == v_title and int(v['copies_available']) < 0:
+				print(f"\n There are no copies of {v['title']}.\n")
+				return
+
+		# is the move title in the inventory
+		if available_id == False:
+			print(f"\n{v_title} is not in the inventory.\n")
+
+		# rental limit
+		for c in self.customers:
+			if c['id'] == c_id and len(c['current_video_rentals'].split('/')) < 3:
+				cust_id = True
+				break
+			elif c['id'] == c_id and len(c['current_video_rentals'].split('/')) == 3:
+				print(f'\n{c["first_name"]} {c["last_name"]} is currently renting three movies, return a movie to borrow another one.')
+				return
+
+		if cust_id == False:
+			print(f'\nThe customer ID is not found.\n')
+			return
+
+		if c['current_video_rentals'] == '':
+			c['current_video_rentals'] = v['title']
+		else:
+			c['current_video_rentals'] += f"/{v['title']}"
+			v['copies_available'] = str(int(v['copies_available']) - 1)
+			Inventory.save_data('inventory', ['id', 'title', 'rating', 'copies_available'], self.videos)
+			Inventory.save_data('customers', ['id', 'first_name', 'last_name', 'current_video_rentals'], self.customers)
 
 	# return a video
 	def return_a_video(self):
@@ -33,9 +70,9 @@ class Inventory():
 
 	# add a new customer
 	def add_a_new_customer(self, customer_id):
-		first_name = input(f"\nEnter a first name: ")
-		last_name = input(f"Enter a last name: ")
-		self.customers.append({'id': customer_id + 1, 'first_name': first_name, 'last_name:': last_name, 'current_video_rentals': ''})
+		f_name = input(f"\nEnter a first name: ")
+		l_name = input(f"Enter a last name: ")
+		self.customers.append({'id': customer_id + 1, 'first_name': f_name, 'last_name:': l_name, 'current_video_rentals': ''})
 		Inventory.save_data('customers', ['id', 'first_name', 'last_name', 'current_video_rentals'], self.customers)
 
 	# read a csv
