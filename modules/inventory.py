@@ -1,7 +1,5 @@
 import csv
 import os
-from modules.videos import Video
-from modules.customer import Customer
 
 class Inventory():
 
@@ -65,8 +63,45 @@ class Inventory():
 
 	# return a video
 	def return_a_video(self):
-		pass
+		c_id = input(f"\nEnter a customer id: ")
+		v_title = input(f"\nEnter a video title: ")
+		vid_id = False
+		cust_id = False
+		l_id = False
 
+		for c in self.customers:
+			if c['id'] == c_id:
+				cust_id = True
+				break
+		
+		if cust_id == False:
+			print(f"\n{c_id} ID was not found.\n")
+			return
+
+		for v in self.videos:
+			if v['title'] == v_title:
+				vid_id = True
+				break
+
+		if vid_id == False:
+			print(f"\n{v_title} was not found.\n")
+			return
+
+		movie_list = c['current_video_rentals'].split('/')
+		m_list = []
+		for c in movie_list:
+			if c == v_title:
+				l_id = True
+				continue
+			else:
+				m_list.append(c)
+		if l_id == False:
+			print(f'\n{v_title} is not in your video inventory.\n')
+
+		v['copies_available'] = str(int(v['copies_available']) + 1)
+		c['current_video_rentals'] = ('' if m_list == [] else '/'.join(m_list))
+		Inventory.save_data('inventory', ['id', 'title', 'rating', 'copies_available'], self.videos)
+		Inventory.save_data('customers', ['id', 'first_name', 'last_name', 'current_video_rentals'], self.customers)
 
 	# add a new customer
 	def add_a_new_customer(self, customer_id):
