@@ -13,7 +13,13 @@ class Inventory():
 
 	# view a customer's rented videos
 	def view_customers_videos(self):
-		pass
+		c_id = input(f"\nEnter the customer id:\t")
+		for c in self.customers:
+			if c['id'] == c_id and c['current_video_rentals'] != '':
+				return(print(f"\n{c['first_name']} {c['last_name']} is currently renting: {c['current_video_rentals']}\n"))
+			elif c['id'] == c_id and c['current_video_rentals'] == '':
+				return(print(f"\n{c['first_name']} {c['last_name']} is not currently renting a movie.\n"))
+		print(f"\nCustomer ID is not found.")
 
 
 	# rent a video

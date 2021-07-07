@@ -24,10 +24,10 @@ class Interface():
 
 			if user_input == '1':
 				print("View inventory")
-				Inventory.view_video_inventory()
+				Inventory.view_video_inventory(self)
 			elif user_input == '2':
 				print("View a customer's rented videos")
-				Inventory.view_customers_videos()
+				Inventory.view_customers_videos(self)
 			elif user_input == '3':
 				print("Rent a video")
 				Inventory.rent_a_video()
