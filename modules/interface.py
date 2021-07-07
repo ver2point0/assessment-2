@@ -23,10 +23,8 @@ class Interface():
 			)
 
 			if user_input == '1':
-				print("View inventory")
 				Inventory.view_video_inventory(self)
 			elif user_input == '2':
-				print("View a customer's rented videos")
 				Inventory.view_customers_videos(self)
 			elif user_input == '3':
 				print("Rent a video")
@@ -35,7 +33,7 @@ class Interface():
 				print("Return a video")
 				Inventory.return_a_video()
 			elif user_input == '5':
-				print("Add a new customer")
+				Inventory.add_a_new_customer(self, self.customer_id)
 			elif user_input == '6':
 				break
 			else:

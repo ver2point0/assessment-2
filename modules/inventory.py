@@ -33,8 +33,10 @@ class Inventory():
 
 	# add a new customer
 	def add_a_new_customer(self, customer_id):
-		pass
-
+		first_name = input(f"\nEnter a first name: ")
+		last_name = input(f"Enter a last name: ")
+		self.customers.append({'id': customer_id + 1, 'first_name': first_name, 'last_name:': last_name, 'current_video_rentals': ''})
+		Inventory.save_data('customers', ['id', 'first_name', 'last_name', 'current_video_rentals'], self.customers)
 
 	# read a csv
 	@classmethod
@@ -49,6 +51,7 @@ class Inventory():
 		return data, int(row['id'])
 
 	# write to csv
+	@classmethod
 	def save_data(cls, file_name, header_row, data):
 		my_path = os.path.abspath(os.path.dirname(__file__))
 		path = os.path.join(my_path, f"../data/{file_name}.csv")
